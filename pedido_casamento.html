@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Pedido de Casamento</title>
+	<style>
+		html, body {
+			width: 100%;
+			height: 100%;
+			background: #444;
+		}
+
+		body {
+			display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    justify-content: center;
+		}
+
+		#pergunta {
+			font-family: Arial;
+			font-size: 12pt;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="pergunta">Aceita casar comigo?</div>
+	<br />
+	<input type="button" value="Sim" onclick="pedidoCasamento.respostaSim()" default />
+	<br />
+	<input type="button" value="Não" onmouseenter="pedidoCasamento.respostaNao(this)"  />
+</body>
+<script>
+	class PedidoCasamento {
+		respostaSim() {
+			alert("Resposta: Sim. Nos casaremos e viveremos juntos pelo resto de nossas vidas!");
+		}
+
+		respostaNao(input) {
+			let winWidth = window.innerWidth;
+			let winHeight = window.innerHeight;
+			
+			let inputWidth = input.offsetWidth;
+			let inputHeight = input.offsetHeight;
+
+			let maxWidth = winWidth - inputWidth;
+			let maxHeight = winHeight - inputHeight;
+
+			let randomTop = 0;
+			let randomLeft = 0;
+			let currentTop = parseInt(input.style.top.replace("px", ""));
+			let currentLeft = parseInt(input.style.left.replace("px", ""));
+			let diffTop = 0;
+			let diffLeft = 0;
+
+			do {
+				randomTop = Math.floor(Math.random() * maxHeight);
+				randomLeft = Math.floor(Math.random() * maxWidth);
+
+				diffTop = Math.abs(randomTop - currentTop);
+				diffLeft = Math.abs(randomLeft - currentLeft);
+			}
+			while (diffTop < 200 || diffLeft < 200);
+
+			input.style.position = "fixed";
+			input.style.top = `${randomTop}px`;
+			input.style.left = `${randomLeft}px`;
+		}
+	}
+
+	var pedidoCasamento = new PedidoCasamento();
+</script>
+</html>
